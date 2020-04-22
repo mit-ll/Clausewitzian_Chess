@@ -53,4 +53,4 @@ The basic requirements for this application are node.js, socket.io, express.js, 
     - If you'd like to perform UI work, feel free to fork the repo in accordance with the lincese information.
 
 ## Documentation
-Please view the [companion guide PDF](Clausewitzian_Chess_v6.pdf) for further documentation. Additional help on setting up and configuring and the mongodb database component can be found in the [database README](database\README.md).
+Please view the [companion guide PDF](Clausewitzian_Chess_v6.pdf) for further documentation. Additional help on setting up and configuring and the mongodb database component can be found in the [database README](https://github.com/mit-ll/Clausewitzian_Chess/blob/master/database/README.md).
