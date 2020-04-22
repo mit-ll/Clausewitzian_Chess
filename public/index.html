@@ -1,0 +1,367 @@
+<!--
+  Copyright (c) 2019, Massachusetts Institute of Technology (MIT)
+  All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+
+  1. Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its contributors
+  may be used to endorse or promote products derived from this software without
+  specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=410, user-scalable=no, minimal-ui">
+  <title>DC Chess</title>
+  <link rel="stylesheet" href="lib/chessboard-0.3.0.css">
+  <link rel="stylesheet" href="lib/WinJS.4.0/css/ui-light.css" />
+  <link rel="stylesheet" href="lib/jquery-ui-1.12.1.css" />
+  <link rel="stylesheet" href="/default.css" />
+  <style>
+    input.number {
+      width: 4px;
+      font-size: x-small;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    table {
+      border-spacing: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="invitePopup" title="Game Invitation">
+      <p>Accept invitation from <span id="inviter"></span>?</p>
+      <p id="invitePopupStatus"></p>
+  </div>
+  <div id="awaitingInviteResponse" title="Awaiting invitation response...">
+    <p>Waiting for response from <span id="invitee"></span></p>
+    <p id="awaitingInviteResponseStatus"></p>
+  </div>
+  <div id="gameoverPopup" title="Game Over">
+    <p>Game Over!</span></p>
+    <p id="gameoverPopupContent"></p>
+  </div>
+  <div class="page login" id='page-login'>
+    <div class='logo'></div>
+    <span id="login-error" style="color:red"></span><br/>
+    <input id='username'/>
+    <button id='login'>Login</button>
+  </div>
+  <div class="page lobby" id='page-lobby'>
+    <h1>Clausewitzian Chess</h1>
+    <span id="userLogout">
+      <span id='userLabel' style="padding: 5px;font-size: xx-large;color: darkgrey"></span>
+      <button id="logout">Logout</button>
+    </span>
+    <br/>
+    <!--<br/><a class="button" href="/dashboard.html" target="_blank">Dashboard</a>-->
+    <!--<br/><button id="testButton" style="visibility: show">Test</button>-->
+    <h3>Active games (no spectating yet)</h3>
+    <div id='gamesList'>
+      No active games
+    </div>
+    <h3>Online players</h3>
+    <div class="'user-list" id='userList'>
+      No users online
+    </div>
+  </div>
+  <div class="page game" id='page-game' style="">
+    <span id="game-buttons and status" style="">
+      <span id="loggedInUser" style="text-align: center; color: darkgrey; font-size: 25px;"></span>
+      <button id='resignAndLogout'>Logout</button>
+      <button id='game-resign'>Resign</button>
+      <button id='game-back'>Back</button>
+    </span>
+
+    <div id="status-panel" style="text-align: center;vertical-align: middle">
+      <span style="display: inline-block;width:8%;"></span>
+      <span style="display: inline-block;width:50%;">
+        <p id="status-label" class="status">Status:</p>
+        <p id="status-text" class="status">None.</p>
+      </span>
+      <span style="display: inline-block;width:30%;"></span>
+    </div>
+
+      <div id="config-game-chat-wrapper">
+        <div id="config-buttons-span" style="display: inline-block;vertical-align: top; ">
+          <button id="startBtn"  >Start</button><br/>
+          <button id="passBtn"  >Pass</button><br/>
+          <button id="config-button">Piece Configuration</button><br/>
+          <div id="config-panel" style="padding: 5px;position:absolute;z-index: 1;margin-left: auto;margin-right: auto;top: 20%;vertical-align: top;display: none;width: auto;height: 700px; border: 1px solid black;background-color:white">
+            <form id="configForm"> <!-- TODO: better to generate this html from the config properties -->
+              <table>
+                <tr>
+                  <th>Piece</th>
+                  <th>View<br /> Range</th>
+                  <th>Sight<br /> Strength</th>
+                  <th>Jamming</th>
+                  <th>See Inward<br /> Threats</th>
+                  <th>See Outward<br /> Threats</th>
+                  <th>Friction</th>
+                  <th>Value</th>
+                </tr>
+                <tr>
+                  <td class="piece" id="P">White Pawns</td>
+                  <td><input class="number" id="PviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="PsightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="PjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="PshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="PshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="Pfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="Pvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="N">White Knight</td>
+                  <td><input class="number" id="NviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="NsightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="NjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="NshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="NshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="Nfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="Nvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="B">White Bishop</td>
+                  <td><input class="number" id="BviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="BsightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="BjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="BshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="BshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="Bfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="Bvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="R">White Rook</td>
+                  <td><input class="number" id="RviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="RsightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="RjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="RshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="RshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="Rfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="Rvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="Q">White Queen</td>
+                  <td><input class="number" id="QviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="QsightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="QjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="QshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="QshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="Qfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="Qvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="K">White King</td>
+                  <td><input class="number" id="KviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="KsightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="KjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="KshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="KshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="Kfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="Kvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="p">Black Pawn</td>
+                  <td><input class="number" id="pviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="psightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="pjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="pshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="pshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="pfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="pvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="n">Black Knight</td>
+                  <td><input class="number" id="nviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="nsightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="njammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="nshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="nshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="nfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="nvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="b">Black Bishop</td>
+                  <td><input class="number" id="bviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="bsightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="bjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="bshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="bshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="bfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="bvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="r">Black Rook</td>
+                  <td><input class="number" id="rviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="rsightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="rjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="rshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="rshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="rfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="rvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="q">Black Queen</td>
+                  <td><input class="number" id="qviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="qsightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="qjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="qshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="qshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="qfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="qvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="k">Black King</td>
+                  <td><input class="number" id="kviewRange" type="number" name="viewRange"/></td>
+                  <td><input class="number" id="ksightStrength" type="number" name="sightStrength"/></td>
+                  <td><input class="number" id="kjammingValue" type="number" name="jammingValue"/></td>
+                  <td><input class="" id="kshowThreatening" type="checkbox" name="threatening"/></td>
+                  <td><input class="" id="kshowThreatened" type="checkbox" name="threatened"/></td>
+                  <td><input class="" id="kfriction" type="checkbox" name="friction"/></td>
+                  <td><input class="number" id="kvalue" type="number" name="pieceValue"/></td>
+                </tr>
+                <tr>
+                  <td class="piece" id="setAll">Set All</td>
+                  <td><input class="number" id="setAllViewRange" type="number" /></td>
+                  <td><input class="number" id="setAllSightStrength" type="number" /></td>
+                  <td><input class="number" id="setAllJammingValue" type="number" /></td>
+                  <td><input class="" id="setAllShowThreatening" type="checkbox" /></td>
+                  <td><input class="" id="setAllShowThreatened" type="checkbox" /></td>
+                  <td><input class="" id="setAllFriction" type="checkbox" checked/></td>
+                  <td><input class="number" id="setAllValue" type="number" /></td>
+                </tr>
+              </table>
+              <p style="text-align: center">
+                <button id="submitConfig">Submit</button>
+                <button id="cancelConfig">Cancel</button>
+              </p>
+            </form>
+          </div>
+          <button id="admin-button">Admin Configuration</button>
+          <div id="admin-panel" style="padding: 5px;position:absolute;z-index: 1;margin-left: auto;margin-right: auto;top: 20%;vertical-align: top;display: none;width: auto;height: 350; border: 1px solid black;background-color:white">
+              <form id="adminForm">
+                <table>
+                  <tr>
+                    <td class="option" id="turns">Maximum Turns:</td>
+                    <td><input class="number" id="maxTurns" type="number" /></td>
+                  </tr>
+                  <tr>
+                    <td class="option" id="budget">Maximum Budget:</td>
+                    <td><input class="number" id="maxBudget" type="number" /></td>
+                  </tr>
+                  <tr>
+                    <td class="option" id="victory">Victory Condition:</td>
+                    <td><select class="" id="vCondition" name="vCondition" size="4">
+                      <option value="KINGCAPTURE">King Capture</option>
+                      <option value="THREECHECK">Three Check</option>
+                      <option value="MATERIAL">Most Material</option>
+                      <option value="PIECES">Most Pieces</option>
+                    </select></td>
+                  </tr>
+                  <tr>
+                    <td class="option" id="scores">Show Scores:</td>
+                    <td><input class="" id="showScore" type="checkbox" /></td>
+                  </tr>
+                  <tr>
+                    <td class="option" id="currFP">Show Current Friction:</td>
+                    <td><input class="" id="showCurrFP" type="checkbox" /></td>
+                  </tr>
+                  <tr>
+                    <td class="option" id="nextFP">Show Next Friction:</td>
+                    <td><input class="" id="showNextFP" type="checkbox" /></td>
+                  </tr>
+                  <tr>
+                    <td class="option" id="captured">Show Captured Pieces:</td>
+                    <td><input class="" id="showCaptured" type="checkbox" /></td>
+                  </tr>
+                  <tr>
+                    <td class="option" id="advScores">Show Adversary Scores:</td>
+                    <td><input class="" id="showAdvScores" type="checkbox" /></td>
+                  </tr>
+                </table>
+                <p style="text-align: center">
+                  <button id="submitAdmin">Submit</button>
+                  <button id="cancelAdmin">Cancel</button>
+                </p>
+              </form>
+          </div>
+          <div id="black-turn"><img src="img/black.png" alt="Black" style="width:100px;height:150px;"></div>
+          <div id="white-turn"><img src="img/white.png" alt="White" style="width:100px;height:150px;"></div>
+        </div> <!-- config buttons span ender -->
+        <div id="game-board-wrapper" style="display: inline-block">
+            
+            <div id='game-board' style="vertical-align: top;display: inline-block;width: 600px"><p>test</p></div>
+            <div id='set-board' style="vertical-align: top;display: inline-block;width: 600px"><p>test</p></div>          
+            <div style="clear:both"></div>
+            
+            <div id="friction-panel-span" style="text-align:center">
+              <div id="pcomp-panel">
+                <p id="pcomp-value" class="pcomp">Current Budget:</p>
+                <p id="pcomp-label" class="pcomp">Piece Composition Help:</p>
+                <p id="pcomp-text" class="pcomp">None.</p>
+              </div>
+              <div id="friction-panel">
+                <p id="friction-label" class="friction">Friction Pieces:</p>
+                <p id="friction-text" class="friction">None.</p>
+              </div>
+              <div id="score-panel">
+                <p id="score-label" class="score">Scoring:</p>
+                <p id="score-text" class="score">None.</p>
+              </div>
+            </div>
+
+        </div> <!-- end game-board-wrapper -->
+        <div id="chat-panel"
+      style="vertical-align: top;display: inline-block;width: 400px;height: 600px; border: 1px solid black;padding:5px">
+      <h3>Chat</h3>
+      <div id="chatView" style="width:100%;height:100%">
+        <div class="chatoutputWrapper" id="chatInputContent">
+          <div class="chatoutput" id="chatOutputContent"></div>
+        </div>
+        <!-- TODO: properly put chat and users side by side, with input below -->
+        <div class="chatusers" id="chatUsersContent"></div>
+
+        <span class="chatinput">
+          <input id="chatInput" type="text" />
+        </span>
+      </div>
+    </div> <!-- end chat panel div -->
+
+      </div> <!-- end gameboard wrapper -->
+  </div>
+
+  <script src="lib/socket.io-1.2.0.js"></script>
+  <script src="lib/jquery-1.11.1.js"></script>
+  <script src="lib/jquery-ui-1.12.1.js"></script>
+  <script src="lib/WinJS.4.0/js/WinJS.min.js"></script>
+  <script src="lib/chess.js"></script>
+  <script src="lib/chessboard-0.3.0.js"></script>
+  <script src="/default.js"></script>
+</body>
+
+</html>
