@@ -48,6 +48,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 # Citation
 Please use this DOI number reference, published on Zenodo, when citing the software:
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4281217.svg)](https://doi.org/10.5281/zenodo.4281217)
 
 # Disclaimer
@@ -59,4 +60,4 @@ Subject to FAR 52.227-11 – Patent Rights – Ownership by the Contractor (May 
 
 Delivered to the U.S. Government with Unlimited Rights, as defined in DFARS Part 252.227-7013 or 7014 (Feb 2014). Notwithstanding any copyright notice, U.S. Government rights in this work are defined by DFARS 252.227-7013 or DFARS 252.227-7014 as detailed above. Use of this work other than as specifically authorized by the U.S. Government may violate any copyrights that exist in this work.
 
-The software/firmware is provided to you on an As-Is basis
+The software/firmware is provided to you on an As-Is basis.
