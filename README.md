@@ -1,4 +1,5 @@
 # Clausewitzian (Dead Carl) Chess
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4281217.svg)](https://doi.org/10.5281/zenodo.4281217)
 See license information below.
 
 DISTRIBUTION STATEMENT A. Approved for public release. Distribution is unlimited.
