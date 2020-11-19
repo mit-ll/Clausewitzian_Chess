@@ -1,16 +1,6 @@
 # Clausewitzian (Dead Carl) Chess
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4281217.svg)](https://doi.org/10.5281/zenodo.4281217)
-See license information below.
+Pleaes note the license and disclaimers in this README
 
-DISTRIBUTION STATEMENT A. Approved for public release. Distribution is unlimited.
-This material is based upon work supported by the Defense Advanced Research Projects Agency under Air Force Contract No. FA8702-15-D-0001. Any opinions, findings, conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the Defense Advanced Research Projects Agency.
-
-© 2019 Massachusetts Institute of Technology.
-MIT Proprietary, Subject to FAR52.227-11 Patent Rights - Ownership by the contractor (May 2014) 
-
-Delivered to the U.S. Government with Unlimited Rights, as defined in DFARS Part 252.227-7013 or 7014 (Feb 2014). Notwithstanding any copyright notice, U.S. Government rights in this work are defined by DFARS 252.227-7013 or DFARS 252.227-7014 as detailed above. Use of this work other than as specifically authorized by the U.S. Government may violate any copyrights that exist in this work.
-
-# Background
 ## Purpose
 This tool is a chess variant designed to demonstrate the possibility of modeling complex cognitive concepts in simple, well-known games. More specifically, the effort that led to the tool’s creation focused on understanding the complications that arise in complex systems of systems. It is important to note that in its current form the tool is an engineering prototype. The focus was on modeling concepts and not about game polish or production level development. We leave further polishing to future efforts and/or to the open source community.
 
@@ -55,3 +45,21 @@ The basic requirements for this application are node.js, socket.io, express.js, 
 
 ## Documentation
 Please view the [companion guide PDF](Clausewitzian_Chess_v6.pdf) for further documentation. Additional help on setting up and configuring and the mongodb database component can be found in the [database README](https://github.com/mit-ll/Clausewitzian_Chess/blob/master/database/README.md).
+
+
+
+# Citation
+Please use this DOI number reference, published on Zenodo, when citing the software:
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4281217.svg)](https://doi.org/10.5281/zenodo.4281217)
+
+# Disclaimer
+DISTRIBUTION STATEMENT A. Approved for public release. Distribution is unlimited.
+This material is based upon work supported by the Defense Advanced Research Projects Agency under Air Force Contract No. FA8702-15-D-0001. Any opinions, findings, conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the Defense Advanced Research Projects Agency.
+
+© 2019 MASSACHUSETTS INSTITUTE OF TECHNOLOGY
+Subject to FAR 52.227-11 – Patent Rights – Ownership by the Contractor (May 2014)
+
+Delivered to the U.S. Government with Unlimited Rights, as defined in DFARS Part 252.227-7013 or 7014 (Feb 2014). Notwithstanding any copyright notice, U.S. Government rights in this work are defined by DFARS 252.227-7013 or DFARS 252.227-7014 as detailed above. Use of this work other than as specifically authorized by the U.S. Government may violate any copyrights that exist in this work.
+
+The software/firmware is provided to you on an As-Is basis
