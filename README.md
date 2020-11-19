@@ -21,15 +21,6 @@ Our conclusion is that we have successfully modeled fog of war, friction, compos
 ## Known Issues / Next Steps
 We categorize future efforts along three main lines. The first is fixing errors and problems that exist in the code base. The second is improving, adjusting, or balancing existing game elements. Finally, the third category is progressing on additional features that do not exist. As a general note, the tool would benefit significantly from polishing and user interface improvements; unfortunately, this was out of scope for the current effort.
 
-# Licenses ([BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause))
-Copyright (c) 2019, Massachusetts Institute of Technology (MIT) All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 # Getting Started
 ## Prerequisites
 The basic requirements for this application are node.js, socket.io, express.js, and mongodb. Please view the [companion guide PDF](Clausewitzian_Chess_v6.pdf) for more information regarding the game details, installation, etc...
@@ -46,11 +37,17 @@ The basic requirements for this application are node.js, socket.io, express.js, 
 ## Documentation
 Please view the [companion guide PDF](Clausewitzian_Chess_v6.pdf) for further documentation. Additional help on setting up and configuring and the mongodb database component can be found in the [database README](https://github.com/mit-ll/Clausewitzian_Chess/blob/master/database/README.md).
 
+# Licenses ([BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause))
+Copyright (c) 2019, Massachusetts Institute of Technology (MIT) All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Citation
 Please use this DOI number reference, published on Zenodo, when citing the software:
-
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4281217.svg)](https://doi.org/10.5281/zenodo.4281217)
 
 # Disclaimer
